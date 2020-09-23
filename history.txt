@@ -1,0 +1,619 @@
+3.0.9
+NEW CF now uses the project name(or VBG if that is used) to name the Release folder.
+NEW CF now detects and repairs a problem with UserControls which set their own Font property. If Font is not set first then setting other Properties that reference Font can cause CF to have trouble recognising the UserControl Name Property properly. Any ReadProperty call that includes the word Font is moved to the top of the procedure (copes with With structures)
+FIXED OOPS left a debug stop command in the code.
+3.0.8
+IMPROVED Usage message for Enum Members now correct doesn't count declaration or Enum Capitalisation Protection code  
+IMPROVED Usage message for Enums now correct if Enum name is not used in code but members are.
+IMPROVED SubClass detection now finds First PUBLIC sub rather than just the first Sub in code. Thanks Carles P.V. for making this refinement necessary. 
+FIXED OOPS 2 Subclass detection disabled by the 3.0.5 Sort Routine move.
+FIXED OOPS 1 damaged the Unused parameters comment fix from 3.0.1 during the speed ups in 3.0.7.
+REMOVED Mark Only option from Integer To Long and Move API to end of Declaration (neither really relevant)
+3.0.7
+FIXED AutoFix Singleton Array now gets it right most of the time the time<fingers crossed> or leaves comments to help you complete the change.
+IMPROVED speed of several fix search systems, removed ultra-safe (but slow) routines that contained unneeded safety mechanisms.
+IMPROVED speed of basic control data gathering, removed a slow section only needed in renaming cycle.
+IMPROVED speed of basic control data gathering, Slow ImageList relationship only checked if an imagelist exists.
+NEW fix/message 'Single letter Variable 'X' not used except in VB native Mouse Events.' also applies to 'Y' Public/Private Declared X/Y not needed if only used in MOuse events. A Special case of Unused variable that can't be detected normally because they are in code but as parameters.
+IMPROVED speed of several Resturucture fixes increased with better searching techniques.
+FIXED bug in BooleanIfCollapse that wrongly converted 'If X > 0 Then ' to 'Y = X' instead of  'Y = X > 0' Thanks Lee Grant
+3.0.6
+NEW Code Fixer now aborts fix/format if a missing reference is detected. Resolve the issue and try again. Thanks Ian K
+IMPROVED Integer2Long fix now recognizes Typed variables being used to extract data from a file opened with the 'Binary' keyword and the 'Get' command should not be upgraded because the size of the type governs the length of the extracted data at each call. Thanks Alfred Koppald
+3.0.5
+IMPROVED renaming variable in the Public to Property fix now misses underscore+word mismatches.
+IMPROVED Empty (but neeeded) ISubClass procedures now recognised and a <Stub> comment inserted.
+FIXED spelling error in Enabled Timers on UserControls fix ennabeld > enabled.
+FIXED location of Sort Routines moved again to just before the main format routine, This solves problems with moving unused code to the end of the code, location of the bragline and a bug if the last line of the Declaration section is '#End If'
+3.0.4
+CHANGED Sort Routines fix has been moved from the Restructure tab to the Format Tab.
+NEW Fix on the Restructure Tab; Enabled Timers on UserControls can cause problems (for CF and every day programming (watch the VB Captionbar with a timer on a UC)). CF now turns them OFF in the IDE and inserts code that turns them back ON when the code is running.
+IMPROVED Option Explicit is only applied to UserControls after the Missing Dim fix has been applied which stops one of the crash points of CF running on poorly coded UserControls.
+IMPROVED speed. Changed about 60 calls to Arraymember (slow Paramarray) to IsInArray(faster)
+FIXED last Declaration if Global now updates correctly to Public.
+IMPROVED Speed. Several fixes have been changed from string array scanning(slow) to CodeModule.Find(fast) detection of theri target code.
+IMPROVED Right-Click Code context menu Procedure|Format indents the Proc header correctly.
+3.0.3
+IMPROVED many of the Dangerous Coding warning tests have been speed up and extended to mark API declarations as well as code useage.
+FIXED Procedure level Constants only used to set another Constant using Or/And math no longer marked unused.
+IMPROVED Exit Proc fix now finds Exit Proc separated from End Proc only by a GoTo target Label.
+CORRECTED internal references to version 2 updated
+FIXED search for whole word now ignores word if it has an underscore attached. Thanks Morgan
+FIXED oops, accidentaly disabled the menu button and the right-click code menus. Thanks Bazz
+FIXED the 300 fix for dimmed goto labels missed certain other variables which also had no spaces. test now checks for the  colon before ignoring the line. eg Dim Frm As New frmTest / frm.Show is now detected. Thanks Jim Jose
+3.0.2
+FIXED bug dealing with untyped unused array parameters. Thanks surfaceLife for using this
+FIXED bug with untyped Dim array typed to Array style functions.
+3.0.1
+FIXED bug in Unused parameters comment that inserted the comment incorrectly into multiline procedure headers. Thanks Marcel 
+FIXED artifact of the format code that inserts spaces into multiline procedure headers (visual effect only CF used to clean it up safely, now it doesn't do it). (Found fix point while working on MArcel's bug above Thanks again) 
+FIXED sub-classing Implements procedures (and which are not called explicitly from the code (EG 'Implements ISubclass ' and 'Function IsubClass_WinodwsProc') whose name doesn't reflect the casing of the Implements declaration line were being commented out. CF now corrects casing of procedure names to match the delcaration line. Thanks Ian K
+3.0.0
+NEW PAGE AT PSC
+NEW when creating a control array of controls with Captions(CommandButtons, Labels and Menus mainly) (if set in IDE) the Caption( first 20 letters) is inserted as a comment after the Case statement the code creates. Makes new proceudre more readable.
+FIXED error displaying Caption of first control when New control array was being created. (The error only occured in the Control Rename tool display, it did not affect the actual Caption).
+NEW Option Explicit Insertion disabled for Format Only (otherwise you end up with unrunable code if you didn't have Option Explicit). 
+NEW You can now use different Indent styles for Case and Else structures
+IMPROVED Unused Procedure DIms now copes with (extremely rare) bug of Dimmed GoTo labels (legal but pointless)
+IMPROVED Unused Private objects can now recognise duplicate unused variables on different modules.
+IMPROVED speed of the default property fix. I had over-engineered the test to check for all sorts of exceptions but neglected to make the simplest check, is the control name present without a property attached. Do'h.
+2.9.9
+FIXED very large numbers of Exit Procedures can create appearance of CF locking up. Improved the detection for faster recognition and added a DoEvents to stop Task manager reporting 'not responding
+IMPROVED 'Unneeded Dim Initialisation' no longer hits code of format ' X = 0 + Var ' and ' X = "" & Var ' used to allow Null database field to initialize properly.
+FIXED false message about Variable with control name was being produced for variable called 'Frm'
+2.9.8
+FIXED Move Dim to Top was moving top of procedure comments to below the Dims.
+FIXED if you deleted a module then called the file tool it crashed CF.
+FIXED Unused procedures whose name started with the name of a control were not being caught.
+FIXED With structure recognises the case of Single-Type procedures still using their type suffix 'X =ProcName!(Y) ' as not suitable targets for the fix.
+2.9.7
+FIXED ByVal was being applied to Implements classes and destroying their usability. Similar test added to Unused Parameter fix. Thanks Ian K.
+IMPROVED The Err/Error object fix now ignores Event Error code rather than damaging it.
+FIXED SubClassing test no longer detects itself in code. (only really a CF on CF problem ;) )
+FIXED Move Dim to Top was moving to 2nd code line.
+FIXED empty message about ByVal inserted if there was a single untyped parameter.
+Expanded Unneccessary Exit Fix to recognise On Local Error...
+FIXED control tool was not displaying Captions
+2.9.6
+FIXED the Unnecessary Exit Proc Fix was wrongly fixing code of the format If X Then/code/Else/code/Exit Proc/End If/code. Thanks Denis Surge
+IMPROVED Unneeded Exit Proc test is more thorough. Thanks Denis Surge
+IMPROVED the Dim To Top fix now also moves Constants to top of the Dims just in case the Const is being used to size an array that is being Dimmed (very rare)
+FOUND a potential problem in XP Frame fix: If the frames are resized in code (But not by resizer ocx/classes which can see the PictureBoxes) then you have to provide resizing code for the PictureBoxes. There are too many ways to resize controls for CF to be able to detect this but a comment has been added to the msgbox and elaborated in the help file(when I have next update ready).
+FIXED bug in the Line continuation formatter that went into an endless loop if there were more than 24 line continuation characters (Space & underscore) in a comment (Evan Toder's fancy header code that can create this condition). Thanks Ian K.
+FIXED rare bug of a parameter being a poor name and its type being such that when its renamed it becomes the same as its type (EG FillStyle As rgnFillStyle)
+2.9.5
+IMPROVED Paul Caton's subclassing (which requires a specific procedure to be 1st in the module) now protected form being commented out or moved out of position.
+FIXED bug which could insert Option Explict without commenting on it. This meant that undetected undeclared variables would cause a crash and give the appearance that CF had somehow lost declaration data. (only happened in code with no declaration section). Thanks Ian K
+FIXED If CF had a problem deciding whether an object was a control name or a variable it would comment but also update the object wiht a default Property as if it was a control.(Required code where a parameter matched the name of a control set in the procedure) Thanks Ian K
+2.9.4
+FIXED bug with fully referenced controls. If CF changes a Public variable/object to Private then fully referenced (FormName.ObjectName.PropertyName) code can no longer see the module level variable and code  fails. CF now eliminates this unneeded completeness. Thanks Ian K for finding this one and supplying code that suffered the problem.
+2.9.3
+Added a subclassing detector which inserts a message if it detects a string used in several subclassing method, There is a sub fix that detects Paul Caton's subclassing method and adds a warning about making sure the procedure this relies on is in the correct position. 
+ADDED a trap for 'IsWindow' API in code of format 'If IsWindow(hwnd) = False Then' which cannot be updated to 'If Not IsWindow(hwnd) Then'. Thanks Bazz
+2.9.2
+OOPS a temporary disabling of some fixes while I worked on other stuff was left in v2.9.1
+2.9.1 
+FIXED Default Property fix was being incorrectly applied if code took the form
+With ModuleName
+ .SubName CtrlName
+End With
+Thanks Richard Brisley
+
+2.9.0
+NEW FIX  'Unneeded Dim Initialisation' in Local section. If you create a Typed Dim there is no need to initialise it to its default value. EG Dim bWorking As Boolean/Bworking = False. This fix comments out code that sets Boolean = False, Strings = "" or numeric types = 0. Fix checks for Looping (including GoTo) that might mean that the variable may need to be reset. This fix may change the FIX ID of Unnecessary Exit Proc fix/comments allowing ID 1&2 to be come 1a & 2a which can be auto fixed
+Standardised (and improved) CF comments for Unnecessary Exit Proc fix
+IMPROVED Unnecessary Exit Proc fix recognises code that sets a variable used in the 'If' line test in the case of Exit Procedures at top of the procedure. (X = GetAValue/If  X = 4 Then/Exit <ProcType>/End IF/Rest_of_Code)
+FIXED Integer to Long Fix locked up on code of form 'Function X() As Integer()' 
+IMPROVED If Then Boolean Collapse fix so it misses code that selects between function execution using Select case.
+IMPROVED Unnecessary Exit Proc fix to recognise Error trapping lines as ignorable code for FIX ID 6/6a(start of code 'Exit's replaceable by If Else Then or If Not Then)
+ADDED calls to regsvr32 now recognised as potentially dangerous code.
+corrected some minor spelling errors 
+updated help "Code Fixer Comments' page to be more user friendly
+2.8.9
+FINALLY UPDATED THE HELP FILE ;) thanks for the push Joakim
+FIXED a lock up that occurred during Integer to Long fix.
+FIXED a bug in the handling of very long string Constants that didn't collapse them properly
+FIXED the Unecessary Exit fix which was mis-identifying targets.
+2.8.8
+Finaly found the bug that would occasionaly expand string literals containing punctuation (especially brackets) It was a combo of 2 bugs; 
+A) not recognising Replace as a command that has String and Variant versions 
+B) less than perfect detection routine that didn't distinguish between code and string literal brackets (and the type suffix characters) 
+Nothing went wrong until these 2 bugs combined on one line of code. 
+Thanks to Anele Mbanga and Joakim for helping find this
+2.8.7
+CIXED the message attached to the 'X = False' => 'Not X' corrected
+FIXED bug with Poor Name Parameter fix which didn't rename parameters in code if they were using the TypeSuffix.
+FIXED the adjustment to Procedure fix disabled the simply unnecessary Exit at end of proc fix.
+2.8.6
+FIXED bug in Property creator which didn't recognize VBConstants used as Types and falsely created Set/Get Propertyies instead of Let/Get. Thanks Ian K
+NEW fix String Literals joined by Ampersand <"String1" & "String2"> converted to single string literal <"String1String2"> only applies to  code lines less than 1.1 of the Max line length value so that larger strings can still recieve line continuation formatting. Thanks Bazz who brought the issue to my attention.
+2.8.5
+CHANGED the Create Release/Single Folder buttons now close the File tool automatically.
+NEW Unnecessary Exit Procedure lines of the format ( If X Then/Exit Procedure/End If/Rest of code ) can be converted to (If Not X Then/Rest of code/End If) (also does If Not X Then to If X Then)
+NEW Unnecessary Exit Procedure lines of the format ( If X Then/bit of code /Exit Procedure/End If/Rest of code ) can be converted to (If Not X Then/bit of code /Else/Rest of code/End If) (also does If Not X Then to If X Then)
+IMPROVED the Default Property fix was a bit too resticted, so lossened it up again.
+2.8.4
+IMPROVED Unneeded Exit Procedures fix can now check the logic of Exit Proc anywhere in If theN/ Else/ElseIf structures.
+INTERFACE CHANGE The All Button on the Control rename tool is gone.(reason; ugly and useless)
+**********************************************************
+INTERFACE CHANGE 'Fix & Format (Ctrl Def Prop)' due to following fix I have removed the Default Property fix from the settings triggered fix cycle and made it a separate CF menu item. Because this fix relies on other data collected it needs to be in the cycle but because it is slow and only likely to be needed once per project it is easier to have a simple separate launch point.
+**********************************************************
+FIXED whilce doing fix below a handled error in the Default Property fix which caused it to fail (Unfortunately the fix now takes longer to execute but is thorough).
+FIXED bug in Default Property fix which didn't recognize controls being passed as controls to procedure in code of format 'Form.Procedure(CntrlName)'
+2.8.3
+FIXED occasionally CF reported Empty Else structures as protecting code flow from default Else structures; no more.
+FIXED Enum names which are not used in code (but whose members are used) are no longer marked as unused.
+IMPROVED the Exit PRocedure comments have a couple of more options
+IMPROVED Changed single match to literal strings calls MultiLeft/MultiRight to in-line Left$/Right$ tests. Slight speed improvement
+IMPROVED the graph bars are now more consistent in showing progress of CF.
+FIXED (at last) bug caused by code of format 'Case 2: A = True: If X then Y Else Z'  being wrongly expanded by CF assuming that 'If' was first word and inserting the 'End If' incorrectly.
+-------------------------------------------------------
+Thanks Joakim Schramm for all the following bugs/fixes
+-------------------------------------------------------
+IMPROVED DefXXX detection/fix
+FIXED If you use DefXXX and Multiple DIms with single Type (Dim A, B, C as Integer) then CF fixed the multiple line before the DEFXXX so A and B became Integer not whatever the DefXXX should have made them. NOw if DEFXXX is used then the Delcarations section fix 'Correct Multiple Declare Single Line Single Type' ('Single' is standard English meaning NOT the VB Type) is ignored.
+FIXED line number removal now copes with obsolete 'On X GoSub 1, 2, 3 ' sturcture and suggests using Select Case (also applies to 'On X Goto 1, 2, 3' (thanks Robert Rayment for this one too)
+ADDED PrintForm command now detected.
+FIXED Empty string detection with LenB now copes with more complex strucutres.
+FIXED error with singles TypeSuffix (!) being detected as a with target
+IMPROVED the Short-curicuit fix now handles more complex strucutres.
+FIXED type suffix removal missed type suffixes inside brackets  
+2.8.2
+FIXED Potential error in XP Frame bug fix when trying to fit picturebox into frames whcich are resized in code but very small in IDE.
+2.8.1
+FIXED The Integer2Long fix was locking up when checking for variables being used by API's that might not be suitable for updating. This only occurred if the variable had the same name as its Type (legal but messy) and was in a Declarations only module. 
+2.8.0
+OOPS the FIx in2.7.9 to poor name parameter renamer was in fact a bug. Thanks Ian
+FIXED ByVal was wrongly applied if Mid$ was being used to change the contents of a string and nothing else in the sub negated adding ByVal. Thanks to 'Enhanced 3D Rubiks Cube (OCX Control)' which triggered this error.
+2.7.9
+FIXED 2 errors in message about replacing empty 'If Not x Then/ Else' with 'If X Then' (& delete 'Else'. bug 1 no comment marker bug 2 multiple hits.
+FIXED a bug in poor name parameter renamer that messed up if the name and type of the parameter were the same ie 'Picture As Picture' which is legal but confusing.
+2.7.8
+ADDED pleonism fixer now converts 'If X = False Then' to the faster 'If Not X Then' Thanks George E for this idea.
+FIXED Extremely unlike error in Removing structural messages which have non-CF message attached to end.
+2.7.7
+FIXED 'Changed' property of PropertyPages now recognised correctly. Thanks Evan Toder.
+FIXED Public Variables in Implements classes cannot be safely converted to Properties so disabled the fix that does that for implements classes. Thanks Jacobo Hernández Valdelamar
+2.7.6
+IMPROVED the insert ByVal fix ignores untyped variables but inserts a suggestion that it may be able to be added once typecast (chance of stuffing up too great)
+2.7.5
+FIXED bug in incomplete Property with same name as Type/Enum that failed to detect Let existed if located before Get.
+NEW Restructure 'Next X, Y' -> Next X <NEWLINE> Next Y . I didn't even know you could do that. thanks to Evil Bob's 'Kewl Image Effects' for using it in the code.
+2.7.4
+IMPROVED GoTo commentry 'Invalid structure' not triggerd by On Error Goto set outside a loop to trap errors in the loop.
+ADDED more restrictions and more possible messages  to the Secondry Exit detector so that it doesn't comment on those that are many levels deep in structures and not easily coded out and also gives more accurate suggestions for specific situations.
+IMPROVED the incomplete Property with same name as Type/Enum to allow porperty  named Font which recieves a vriable of type Font)
+2.7.3
+FIXED error in the incomplete Property with same name as Type/Enum that disabled the fix.
+ADDED Control tool now warns that a toolbar is on an XP Frame bug target and tells you how to close the wizard safely.
+REODERED the unneeded Exit fix hits before Exit procedure comments.
+IMPROVED Unneeded Exit now checks for any Exit followed by nothing but 'End If's. 
+CHANGED the new Exit Procedure fix interfered with the old Unneeded Exit fix so recoded Unneeded to ignore comments.
+FIXED bug in single procedure format that crashed if the structural error was too many End structural comments. Now inserts a message instead of crashing.
+FIXED bug in auto-repair singleton array which damage the parameter when deleting the Index As Integer
+2.7.2
+FIXED The Preserve Blank option was only working for the first module. Thanks Fabricio Ferreira
+FIXED Public Variables in class/form which are typed with an Enum are correctly converted to Let/Get Properties rather than Set/Get ones.
+New FindAndComment tool started. At present just happens at start of Suggestions, eventually will add ability to add User ability to add more comments.
+CHANGED the way Default Property fix is applied greatly speed up.
+IMPROVED 'Exit Procedure re-code suggetions' now ignores Exit commands that are embeddedin 2 or more Loop structures.
+2.7.1
+NEW FIX 'Exit Procedure re-code suggetions' Comment only fix. This suggests ways to restructure code to eliminate secondry Exit Sub/Function/Property code. secondry Exits make code flow harder to follow and it is usually better/safer to have only a single exit point from a procedure. The test is very simple so far but should not mark secondry Exits which are used to stop code flowing into errortraps at the end of procedures by testing for a label immediately after the Exit line (this test only occurs after the Exit line has failed to be found in an If Then/End If structure).
+FIXED bug in catching orphaned GoTo labels.
+
+2.7.0
+FIXED bug in the incomplete Property/Enum fix that was triggered by the Property name being a substring of other parts of the Property header.
+2.6.9
+FIXED rare bug that caused CF to delete an incomplete Property (Get  or Let/Set only) if it had the same name as an Enum used to Type it. Fix creates an empty complimentry Property member. Thanks Mike Ulik and Ulli Muehlenweg 
+FIXED bug in rename controls (caused by 2.6.7 fix for parameter in procedure name also fixed that one again)
+RESTORED Default Property fix(I disabled it while checking out some bugs in it.)
+IMPROVED search speed by adding a simple Instr test before more complex ones.
+NEW Poorly named Goto label fix. Goto Labels with VB command names (E.G. Err) are changed to <OriginalName>&<ProcedureName>
+2.6.8
+OOPS This time for sure got the GoTo label bug. also got full name so thanks to Ian J. Keiller.
+2.6.7
+OOPS fixed bug in Integer Type members test, only worked if 2 tests detected it.
+FIXED Bug in poorly named parameters which could rename the procedure if the target parameter also appeared underscore delimited in the proc name.
+FIXED Bug with Goto Target lables with code on same line. Thanks Ian K 
+2.6.6
+ADDED hungarian prefix for renaming Adocd controls "ado"
+ADDED new catagory 'No Code (Data Display)' to block 'No Code(Delete?)' suggestion for DataGrid, DataCombo and DataList controls that draw their data from datasources but have no code associated with them. Not that such usage is a good idea (they are all interactive controls after all) but deleting them may make the program unusable.
+FIXED Same name controls on 2 forms but with different casing (EG adoJournal & AdoJournal) VB's Casing automatically makes all code match the casing of the last control created but Code Fixer then declared the 1st control to have no code usage and may wrongly suggested deleting the control.
+2.6.5
+FIXED bug that wrongly included 'Set Variable = ...' line when creating a With Strucutre for the Variable object. thanks Martin Smidt for code that generated the error.
+ADDED a block on Integer updating of Type definitions known to contain/require Integer members (based on the standard naming used by allapi's APIViewer and VB's own API viewer) eg SAFEARRAY2D & BITMAPINFOHEADER. User Defined Types will be updated but unless you have recreated one of the standard Types and then used it in API calls that usually get the standard Types then the update will be transparent to the user. Thanks Aaron Spivey
+FIXED bug in the replace code that could miss matches towards end of a code line.
+FIXED bug renaming singleton control arrays which inserted an extra '(0)'. Thanks Mike Ulik
+2.6.4
+FIXED several small bugs that combinded to mess up line continuation formatting of very long lines that especially it the code's purpose was to write code. Thanks Masino Sinaga for writing it and Mike Ulik for bring it to my attention.
+FIXED replaced a For loop with a Do loop in the format stripping routine beecause in certain situations CF inserted a message which changed the line count and meant that the end of a module was not properly cleaned. If there were very long lines int he un trimmed code then very nasty damage occured.
+FIXED bug that caused explicit type redims to fail if the Array's declaration matched another (earlier declared ) Dim with the same initial letters. ie seeking Dim Arr and Dim  finding ArrWally first then wrongly assigning ArrWally's type to Arr.
+CORRECTED error in trying to detect Types for unTyped dims
+ADDED a few more dangerous strings (mostly to do with accessing policies section of registry)
+2.6.3
+ADDED A toggle constant (XPOffice2003Bug). If the settings pages display 2 thin columns or more than 2 columns then search the code and change the value of this Constant to True. This should hard code the sizes (once I work out what the problem is CF will take care of this itself)
+2.6.2 
+FIXED formatting bugs in single procedure formatting that weren't coping with multiline headers properly.
+2.6.1
+FIXED bug dealing with quote string ""'" (double or single quote) being used with Instr in SQL strings. Thanks Mike Ulik.
+2.6.0
+FIXED parameter processing contained an error, too fiddly to explain.
+FIXED PROPERLY bug that stopped the CF Context menu from appearing if a porcedure had error trapping.
+
+2.5.9
+FIXED BUG that stopped the CF Context menu from appearing if a porcedure had error trapping.
+IMPROVED the Empty 'If ... Then / Else' test now gives a different message for 'If Not ... Then /Else'
+2.5.8
+FIXED bug with lines that have too many Newlines inserted by formatting engine
+2.5.7
+FIXED Bug with Blank string fix and unexpanded If Then lines. Thanks Roy Blanch.
+2.5.6
+OOPS change to Function to Sub fix had logic error which triggered it incorrectly. Logic corrected. 
+2.5.5
+ADDED a guard to protect from With structure being inserted overlapping but not congruent with an If structure.
+Improved With Structure fix can now cope with both dot and bang being used together (ie a recordset may use bang for fields and dot for actions.)
+IMPROVED Function to Sub fix no longer confused by labels of the format 'ProcName_Error' causing it to think there is a return point in the code.
+FIXED bug in settings engine that misaligned data with the display. Thaks Mike Ulik.
+2.5.4
+ADDED error trap to allow CF to WOrk on Dll code which has not been compiling/registered yet.
+FIXED bug in Public to Property fix which failed (by inserting unwanted 'Public)' ) if last member of Declaration was converted.
+2.5.3
+Fix settings pages converted to use PropertyList UserControl.
+2.5.2
+added 2 new Dangerous API's RtlAdjustPrivilege & NtShutdownSystem extreme Danger level.
+2.5.1
+FIXED bug that destroyed Settings if CF crashed. CF now maintains a backup copy of the settings (Defauult to Average setting on initial run)
+FIXED bug in deleting old settings that missed version ending in 9 when cleaning up.
+FIXED 'Convert Public Class/Form Variable to Property' fix doesn't strike if you have turned off the 'Reduce Unneeded Public Dec to Private' fix. Thanks Mike Wardle
+FIXED while speeding up Unused Private I cut'n'Pasted the speed up code from Unused Public and for got to change the trigger word 'Public' to 'Private'Thanks Mike Wardle (found this while checking up on the error above)
+2.5.0
+IMPROVED Short-curcuit fix now uses the faster search based method.
+IMPROVED the IfThenBoolean fix now simplifies the code logic of code of format  'X = Not(Y = 0)' to 'X = Y'
+IMPROVED  Unneeded 'If (' fix now uses the faster search based method.
+
+CHANGED the new fast search-based fixes now happen on a per module basis. (no real change except in coding efficency.
+FIXED several fixes had been linked to a single setting rather than their own values.
+NEW FIX converts
+  ' Select Case X
+  ' Case True           '/False
+  '   Y = Val1
+  ' Case False          '/True/Else
+  '   Y = Val2
+  ' End Select
+  'to collapsed form
+  ' Y = IIf(X, Val1, Val2)
+A very rare thing but irritates me and gives me a chance to try converting the IfThenBoolean fix to other code structures.
+2.4.9
+CHANGE Control rename tool can be moved while it is generating the contents
+CHANGE Control rename tool percentage update rate changes depending on the number of controls (more controls = more regular % change) just eye candy and in fact slows the process very slightly but assures you something is happening.
+CHANGE Control rename tool no longer offers the controls old name as a suggested new name.
+FIXED Faster Unused Procedure test was missing Declarations section.
+IMPROVED If Then Boolean collapser fix no longer restricted to the 5 code lines it works on being consecutive without intervening comments.
+FIXED error in If Then Boolean collapser fix that rewrote the string incorrectly if the tested condifiton was to produce a false if the condition was true.
+FIXED problem in renaming controls caused by a bug keeping an internal array up-to-date.
+IMPROVED renaming controls without code references (Labels, pictureboxes etc that have a graphic function) are renamed faster because CF doesn't search for code references to update.
+IMPROVED the AccumulatorString function now runs more efficently (speeds up most data gathering activities)
+2.4.8
+Improved speed of Unused Procedure search.
+Extended the 'Public Variable to Property fix' to include class module level Public variables and to build Properties from collections Collections.
+2.4.7
+fixed problem in formatting very large arrays of string generated by code using the pattern 'x = Array(...' . Thanks Mohammad Alian Nejadi.
+Fixed logic error in If Then expander & separate compound lines.
+2.4.6
+Added a trap so that you don't crash if you try to give a module the same name as another module or the project(s).
+Corrected a problem with using the module renamer to change the case of a module name.(VB doesn't allow this, 1st you have to change the name to something else then back, CF renames it "a" & strReverse(oldname) then back to the correct case. Thanks Mike Ulik
+
+2.4.5
+oops accidently killed the default value of cls_ByteCheckBox.cls fixed
+2.4.4
+Stopped a problem with empty strings in 2nd half of If-And-Then structures.
+Fixed a bug in Preserve Blanks that was not removing them properly. Also fixed so that Space Separators don't insert spaces where the REM BLANK  mark appears. Thanks Aaron Spivey
+Fixed a bug in poorly named paramaters that over-applied the fix to partial matches. Thanks Aaron Spivey
+Regularised the new in-line fixes; the code is scanned by a procedure called XXXDriver the fix is done by XXXEngine.
+There is a bug in VB which doesn't allow you to manipulate the Form context menu so I have added 'Find Form in Code' to the control context menu.
+Added a detector for lines that are too long for CF processing (1023+ with line continuations.) Suggests spliting the line. Thanks Ulli.
+FIXED error in formatting Type members that didn't take into consideration the later offset of line when offsetting Type. Thanks Mike Ulik
+FIXED GoTo target labels on same line as code were losing their colon. Thanks Paul Caton
+2.4.3
+IMPROVED Unneeded Case Is, Pleonasm, Wend to Do While and Call Remover fixes to use newer/faster direct codepage editing
+Fix "Collapse If Then Boolean settings" for now always displays previous code until I cna be sure it always works
+corrected Restructure Fix "Collapse If Then Boolean settings" to cope with.
+	If X Then
+	 X= false
+	Else
+	 X = True
+	End If
+is reduced to
+	X = Not X
+
+2.4.2
+FIXED error with the With Structure fix which messed up if code before the structure should be within the structure. Now inserts a comment. Thanks to Chad Gould
+
+2.4.1
+New Restructure Fix "Collapse If Then Boolean settings"
+
+If Text1 = "Fred" Then
+ Flinstone = True
+Else
+ Flinstone = False
+End If
+
+is reduced to 
+
+Flinstone = Text1 = "Fred"
+
+'Call Form(i).Load' was wrongly changed to Form i .Load by call removal. fixed. Thanks again Paul Caton.
+With Fix avoids full referenced enum members (enumName.EnumMember )and reference members (DllName.Procedure) which can't use With structures.Thanks Paul Caton.
+Disappearing settings page fixed. Thanks Paul Caton.
+False tool lauches when trying to get setting page fixed. Thanks Aaron Spivey
+
+2.4.0
+Special case of Declaration only module ending in '#End If' being caught in the fix that deals with optional compile modules.
+2.3.9
+FIXED the extra blank being inserted with Dim Usage comments.
+FIXED Debug/Stop detector works again.
+FIXED chr$ to VBConstant fix works again.
+converted many array tests to use quick sorted arrays( generally faster but occasionally a bit slower, noticably when renaming controls)
+CHANGED Option Explict insertion is now always on
+FIXED graph going wrong way for line continuation remover
+2.3.8
+improved speed of cleanup system
+speed improvement for many fixes (test for presense of trigger word(s) in procedure before applying more exacting tests)
+Stopped 'Form Public' fix hitting bas modules
+Found a way to greatly speed up Declaration section processing when the last line of a declaration is not #End If. If This problem exists it will be fixed after the first call to get declaration section data.
+2.3.7
+FIXED bug that stopped Control Tool launching properly after running code Fix.
+ADDED Unused Dim fix now copes with code of format 'x = FormName.ProcName(z, y)' correctly. => 'FormName.ProcName z, y '.
+Simplified the XP-Frame bug comment, removed listing of controls & just tells you what the problem means and how to fix it with Controls tool.
+REVERTED to older Default Propery insertion to deal with a probelm with controls with same name as a Module or Dim variable.
+fixed bug that inserted default property on Declarations with same name as controls.
+fixed bug in 'TypeSuffix Declarations'where the Type includes a dot separator to allow explicit referencing of Module.Type format.
+2.3.6
+NEW FIX on the right-clcik control menu there is now an option 'Hard-Code Strings' similar to Hard-Code but only does string. Useful for developing multi-lingual programs.
+Simplified the Tool launching process has been streamlined to speed up tool appearance.
+CHANGED Interface: The Fix/Format graph is now intergrated into the Find Tool UserDocument.
+FIXED Unused Dims that match a type member used in the proceudre not being properly commented out
+FIXED Type casting of Redim lines failed if there was an end-of-line comment.
+FIXED bug where code of format 'strA = "ProcName "& ProcName(SomeValue) ' stopped VB detecting that PRocName was used as it ignored the string literal and didn't scan on for the code usage. Thanks Ulli
+2.3.5
+fixed bug in Enum Capitalization which incorrectly added words that started with an underscore(Legal if you used the format '[_word]' to create it)
+Fixed bug in  bracket removal that messed up 'If (UBound(x) - Index) \ Y > 0 Then' to *'If UBound(x - Index) \ Y > 0 Then'*. Thanks Stephen S Coleman
+Improved Default Property added to ignore 'If X Is Nothing Then' & 'If Not X Is Nothing Then' where x is a control.
+Fixed bug of a class not detecting calls to Private Property (a whole other problem, there not really being any point in private Properties in classes)
+2.3.4
+IMPROVED bracket removal now removes brackets enclosing a variable/property in 'If (X) Then' lines and that fix stops the mess it made of 'If (x = 3) or (y) Then' style lines.
+IMPROVED Detection of For variable type by checking for Type of 1st variable in the 'To' part of structure.
+FIXED a bug which wasn't updating Dim's with type suffix but commented them out then reinserted them as missing (But not Type casting them in some cases)
+NEW local dim fix that comments out duplicate Dim lines (a problem caused by creating control arrays from the Control tool)
+2.3.3
+FIXED a bug which damaged procedures declared as Static by seeing them as Procedure level delcarations and commenting them out as unused. Tahnks Roy Blanch
+FIXED bug that commented out Functions where the function name used a type suffix (ProcName$) but internally the function used the name without the type suffix (ProcName). thanks Will Barden. 
+FIXED bug in EmptyCaseCheck which crashed if the End Select was last code line of procedure.
+2.3.2
+IMPROVED Un-Typed ReDim's declared in procedure parameters are now type-cast to match the Parameter Type. (extention to fix in 2.2.9)
+IMPROVED The XPFrame Bug repairer is now aware of the the font size of the Frame caption.
+FIXED rare bug with Event/WithEvent detector in Declaration only modules where all Events have been commented out.
+2.3.1
+FIXED bug with Type-Casting parameters. Thanks Rob Rayment for using the code that triggered it.
+FIXED bug which multiplied EOL comments on Dim lines
+FIXED a mis-focused typing error damaged the Detection of API Declares.
+2.3.0
+Special trap for a Property called 'Property' to prevent the Assignment line in Property Get being Scoped.
+Improved and simplified the problem of 'Style' Property not always being a readable property of some controls. Thanks to Dean Camera whose code helped me track this one down.
+2.2.9
+NEW Fix Un-Typed ReDim's declared at procedure level are now type-cast to match the Dim lines Type. (Module Level recieve a comment but are not Type-cast (yet)
+Fixed bug with parameter of format 'Optional X = 0&' which were wrongly updated to 'Optional X = 0 As Long'. Now becomes 'Optional X As Long = 0'
+Fixed bug that doubled comments when upgrading Integer to Long
+Changed Dim Formatting calculation to line up comments properly. (Previously  a long Redim line could cause very large offsets)
+2.2.8
+Fixed 3 old Bugs re-emerged when I modified for more speed.
+a bug that inserted default property on controls being passed as parameters.
+b bug that applied scope to Type members named 'Type'
+c bug caused by not recognizing 'AccessKeys' as a property of UserControls.
+2.2.7
+Changed separate code lines to cope with code in format'ProcName: Procname'. Now divides it rather than inserting comment about Orphan label.
+FIXED bug that caused double insertion of  indexes when creating member 0 of new control arrays.
+2.2.6
+Help File Updated to include new fixes.
+oops, this time for sure, Settings storage fixed. Thanks Mike Ulik.
+Fixed error in assigned only fix which affected code of format 'X=APICall(a, b, X)'. Thanks Tom Law
+tightened up some code.<cross fingers no bugs>
+2.2.5
+Corrected the default settings loader to cope with new fixes.
+Added New resturucture fix that deletes unneeded 'Case Is = ' structures. You only need this if using the < or > operators (And VB will do them for you)
+Fixed a bug with All fixes set to Off that messed up adding As Type to Constants. Thanks Mike Ulik.
+2.2.4
+fixed bugs in ByVal and unused Paramaeters fixes on Property Get's which returned typed arrays using the format 'Public Property Get X() As Byte()'
+Fixed bug detecting Event/WithEvents if it was last line of Declaration section.
+Fixed error in detecting correct project of controls in program started with vbg.
+2.2.3
+FIXED error in extracting code from old procedures when creating control arrays.
+Added a DoEvents that allows you to move the Control Tool while the list is being generated.
+Fixed bug in renamed control detection. Selecting XP Frame Bug Fix on Control Tool now works correctly
+Pooply named message changed so that the new names are on the same line.
+NEW 'ElseIf X Then Y = Z' lines are now expanded. (all this time and I only just saw this used ;) ) 
+CHANGED New method of invoking the Right-Click Code Fixer menus. Now display as standard menus (white background rather than grey, the right click menu vanishes and then a floating menu appears, haven't quite got the positioning right, not as pretty as previously but easier to code and modify)
+FIXED bug in Right-Click menu 'With Apply' structure which was confused by line continuation in Procedure declarations
+NEW Restrucutrue Fixes Unneeded If Brackets ('If (B = X) Then' => 'If B = X Then' and Un Needed Call ('Call X(Y,Z)' => 'X Y, Z'
+2.2.2
+NEW VB's right-click control menu now has a Code Fixer element that allows you to create a Sub which hard-codes the control/form or project's properties and inserts a call to the sub into the relevant form's Form_Load routine(& creates Form_Load if it is missing)). (Mainly for Translators and extracting DB paths from Data controls) NOTE the cute routine that changes XXXColor values to VB Constants.
+Fixed XP Frame Bug fix can't run if a Frame or control on it has been renamed. You now get a msgbox warning you to refresh list first.
+ADDED 'Find In Code' Button on Control Tool, lists all code referring to a control. Inspired by following fix.
+Fixed Crash on calling delete against empty found list. Thanks Mike Ulik
+Fixed Incorrect update of 'Const X As Long = 1&' to Const X As Long As Long= 1" Thanks Mike Ulik
+2.2.1
+CF now copes with the add-in variables of types As Connect and As VBIDE.VBE properly. also Thanks rblanch.
+Fixed problem reading some control Properties (caused the faulty UserControl message to misfire in a project with no UserControls actually an error in frx files). Thanks rblanch.
+Recommend you get the new help file, Find tool description updated.
+Changed tidied up some of the Found list right-click menu captions.
+Added 'Delete Like Selection' uses same search as Like Selection, fills found list with hits then auto uses Delete Listed Comments and finally reloads full search.
+Fixed bug in 'Like Selection' that messed up if the Code Fixer message was in a commented out procedure (so had more than one ' at start)
+Fixed bug in Procedure With Remove that missed some 'End With' lines.  One Day I'll get it all right, Tom ;)
+Fixed bug with UserControls error detector (it was over extended to test UserControl_InitProperties) Thanks Mike Ulik
+2.2.0
+Added 'Like Selection' option to the Code Fixer Messages right-click menu. Allows you to concentrate on a single fix (applies to messages that contain quoted strings (single or double) and numbers, if neither of these it finds comments that are the same as the 1st third of current found text)
+
+Added: Right-click menu on VB codepages now includes a Code Fixer menu which allows the following actions:
+Procuedure 
+	Format
+             Apply            'does basic layout of procedure
+             Remove           'Strips all formatting
+             Undo Last Format ' Restores either of last 2 actions
+        With
+             Purify           'Clean up With Structures
+             Create           'Create With Structures
+             Remove           'Remove With Structures
+
+    Lets you quickly apply indenting to a single procedure. Useful for detecting incomplete structures while you are coding.
+	 Remove Indent
+    Let you remove indenting and line continuation form a procedure (no real use but undoes PRocedure Indent)
+BugTrap (no longer in the Find Tool Code Fixer button menu)
+
+Added Risky Code Warnings for '.script', '.regwrite','.regdelete' and slightly safe '.regread'. Because of the way scripting can be coded these tests ignore case.
+
+2.1.9 
+added 'Match Selection' option to the Code Fixer Messages right-click menu. Allows you to concentrate on a single fix (only applies to generic messages at present)
+Fixed error in seperating single type multilple member Dim lines
+Changed Constant Type detector ('Not' no longer automatically triggers Boolean type)
+2.1.8
+Creating a release now generates a msgbox to tell you it has finished.
+'API Type member must stay Integer' message only fires if other Integer to Long messages are also generated.
+Adjusted the Usage message formats.
+Selecting something in the Search Combo now fires the search.
+Improved Integer To Long fix; 
+1 Types used by APIs are not used (even if the Type is not passed directly but used to create another Variable whcich is then passed in code.) 
+2 Procedure Paramaters and Function/Property Types are unpdated.
+3 Declarations are updated (and message stays with Dims moved to top of procedure)
+fixed a problem with ImageCombos whose Style Property is not the same as as other controls
+2.1.7 
+bug with Case and With Structures fixed
+ fixed bug in Integer to long comments in mark only mode.
+
+2.1.6
+Fixed you can now also set the project name to match the project filename.
+fixed a problem with the Reload command relate to following fixes
+fixed Single Folder button so it is only active if needed.
+fixed a bug in single folder fix that crashed by trying to FilyCopy files already in the sigle folder. Thanks Johnnie Parrish.
+fixed a bug in the expand multiple declares on a line with single type.
+fixed bug that damaged code if you renamed a control array
+fixed bug which messed up some parameter typecasting (insetrted extra comma or right bracket.
+False duplicate procedures reports on UserControl/Class procedures stopped.
+fixed several bugs with the With structure fix Thanks Tom Law.
+2.1.5
+Control renaming and Control array creation improved, very few failures or mis-identifications now occur. Let me know if you see one.
+Fixed bug with embedded and ovelapping With structue creation. Thanks Tomlaw.
+improved With Purify to deal with Objects with more than one parameter.
+corrected Apply/Remove XP Style button captioning.
+fixed error in line continuation removal; was using LenB instead of Len
+fixed bug in parameter Typing that was messing up in final test for matching parameters to other procedures. (This is a bit dubious but works on principle that you will probably use consistent naming for parameters; only used if attempts to analyse the variable in the procedure have failed.)
+
+2.1.4
+CHANGED default setting for unused class/Usercontrol members being commented out is now OFF
+tightened test for recommending Integer to Long in Type definitions. (If the Type is passed to an API then don't suggest, however this does not apply yet for types used to set members of other types which are then passed to API.)
+Improved Debug/Stop messages for greater clarity.
+fixed Event/WithEvents detector. It would skip WithEvents if There was an Event definition above and below it.
+Added extra detection of why a UserControl might fail to be detected with suggested fixes. 
+2.1.3
+added longline limit to all the string with '&" or ' & vbNewLine' wrapping code so short lines don't wrap.
+speed up the data extraction systems
+2.1.2
+Added a basic Debug/Error Detection fix. See help for details.
+Fixed empty case test to correctly detect Case Else being avoided.
+Tracked down bug inserting extra spaces. Caused by the remove typesuffix fix finding the character '$' in same code line as literal strings containing punctuation. 
+2.1.1
+Renaming Parameters can now cope with special case of variable name is same as Type (ie 'Picture As Picture' => 'pctPicture As Picture' and NOT as previously 'pctPicture As pctPicture')
+Improved Found Listview interaction, 'Delete Matching Current Selection' removes the matching lines without re-searching. (Only if the CF coment is on a line by itself; if the CF comment is attached to end of a line then a new search still occurs.)
+Moved Control Cycle of fix to beginning so that poorly initialized UserControls are detected before anything else happens.
+Added With Structure support for Bang(!) connector used in ADO and older basic styles. Thanks Tom Law.
+Fixed bug that crashed if project had no StartUp Object.(v2.1.0 only)
+2.1.0
+FIXED the Find tools visible Columns right-click menu works properly.
+FIXED misidentifying Type suffixed module level variables if used with type suffix in code (type suffix had been replaced with As Type before being added to ID arrays.) 
+Corrected a bug in getting suggested name from caption which sometimes failed.
+new usage message for menu seperators. Thanks Dipankar Basu.
+Added Labels to controls which might suffer XPFrame bug. Large labels on frames can flicker when the mouse crosses them.
+2.0.9
+Seperated Help Upload from Program upload. 
+Changed the XP Style system. Now a button on the Controls Tool.
+ADDED Find settings checkbox to control the toolbar button.
+Reactivated the Usage Comments. They still take a lot of space and some of the comments are inacurate (Check the numbers if in doubt, and use the find tool to check calls)
+2.0.8
+Simplified and speed up some of the data gathering procedures. Removed some armoured car grade tests where a bicycle was really enough.
+CHANGED: Restore files now uses a listview instead of a listbox (cosmetic only)
+CHANGED: Default CF toolbar is now bottom of Find Tool.
+FIXED Integer to Long comments now move with the Dim line when it is moved to top of procedure.(int2Lng is Restructure section and move is in later Locals section)
+FIXED bug deleted 'End Sub' of last Sub if preceeded by 2 blanks with Preserve Blanks selected.
+FIXED in certain situations the Find grid failed.
+2.0.7
+faster launch for sub tools/settings. CF no longer loads the codepanes on starting sub tools.
+search feed back imporved.
+Improved Implements hadling.
+Now understands whole modules encli=osed in Optional Compile structures. Thanks Paul Caton
+FIXED: Aborting now restores Attributes and cleans up after code Fixer correctly. 
+Restored: Column layout code so that Find columns display full text.
+You can now turn the move comments inside routine fix off. (New Default is Off)
+You can now choose how CF indents Case/Else/ElseIf (3 choices none/half/full) see help for details.
+Added a way to change CF's definition of a long line to change the effect of some of the line continuation formatters.
+Changed the input system for saving history and minimum size for the long procedure comments.
+2.0.6
+added a What's NEW section to help (more detailed version of the latest part of this file)
+added a command button to the standard VB toolbar to make Code Fixer easier to show or hide.
+added some changes to cope with difference between MDI and SDI in the VB IDE
+2.0.5
+<fingers crossed> the settings will stick this time.
+Fixed a bug in With Structure fix that in rare circumstances could mess up. Thanks tom law
+Changed size of font in help as some reported it as too small to read. thansk Paul caton
+User Settings is not meant to be clicked directly, it just warns you that you have non-standard settings. Have diavbled the button so you can see it but not click it. Will add a way to save them seperately so that you can switch back and forwards soonish
+Added Error traps with message identifing error location. If you are running CF in the IDE/debug mode the code will Stop allowing you to track and identify the exact error point (CF uses 'Resume' to return to the error causing code), otherwise just record the error reported and contact me (with code if possible). 
+In Compiled Code Fixer the program will use 'Resume Next' skipping over the error and continuing to proecess your code.
+Fixed the GoTo violates structure test to eliminate false hits caused by detecting words that begin with embedded trigger words.
+joining code '&' to previous word eliminated.
+Improved: the default properties insertion has been speed up by almost total recoding.
+Fixed: the unused procedures fix is working again. There was an error which detected self-referencing in Functions
+Fixed: the Empty structure messages were being inserted muultiple times.
+Fixed: the VB toolbars were not coming back into focus(greyed-out but still functioned) when searching unless no finds where made.
+Tigtened up the search/find code.
+Find window keeps the selected line on-screen.
+----------------------
+2.0.4
+Fixed the graphics for Build Data arrays and Get Procedure data now move to show prog is working.
+Updated Risk Code detector to stop misfires on variables which include risk trigger surrounded by underscores.
+Added warning for hard-coded URLs in code.
+OOPS: Missing Dim fix over extended. Was finding false hits in 'Select Case' lines. Fixed.
+2.0.3
+Fixed bug with Name command being treated as Property Name. Thanks to Mike Ulik
+Fixed bug with recordset(index)!fieldname being expanded to 'recordset( index ) !fieldname' Thanks to David
+Improved Control Tool. Suggest Array member message no longer appears for last member after renaming it nor on highlighted member after renaming an array.
+Improved Find no longer flickers when moving to a new selection. Thanks to Brian Barnett and his Advanced Find/Replace Add-In for clue to solution.
+Fixed bug that crashed if you had a control without any code references and Related Documents in program.
+NEW Restructure fix. Detects empty Else/Case/For/With/Do structures.
+Improved detect zero length string fix to include 'If strT <> "" Then' which becomes 'If LenB(strT) Then'
+Fixed bug which only allowed the detect zero length string fix work only once per procedure.
+DeadDim now recognises Functions which test by performing an assignment which could produce an error. Such a Function usually only has a single assignment and would normal be marked assign only/delete variable.
+2.0.2
+Tightened test on Integer to Long fix to discriminate Type Integers from Dim Integer
+Tightened test on Risky detectors so that underscored variables containing the trigger words don't fire it.
+Changed Behaviour (background, no visible effect). Code Fixer now closes the designer/codepane if it is not the active one. This reduces the memory impact of VB while working. Thanks to Kenneth Marsh for this brilliant idea.
+Changed Behaviour. Find tool returns to same row (or end of list) if you repeat a search after editing a find.
+Fixed bug in Unused Dim fix that missed variable being used to Redim an array.
+improved line contiuation layout for "literal string" & "literal string"(see help for full explanation
+'Public variable in Class changed to Property' fix has been extended to Forms(or any control bearing object).
+Fixed a bug in line continuation formatting. Thanks to Ing. Miguel Angel Guzman Robles
+Corrected error in saving settings. Thanks to Ing. Miguel Angel Guzman Robles
+Added graphic of the XPFrame bug to help file for those who wondered.
+Finally tracked down and fixed extra spaces being inserted into some literal strings (bug was in Default Property fix). Thanks necro static
+Bug in inComment that stalled on a comment mark in a literal string
+OOPS final fix to double vbcrlf not included in 2.0.1 . Now extended to MsgBox comments with newline as well.
+
+2.0.1
+Fixed bug with with bang (!) connectors. Thanks Tom Law
+fixed bug which skipped renaming controls in lines with line continuations
+added Error trap to deal with attempts to rename a control from one control array to another controlarray
+fixed bug in self reference test which messed up if form name matched end of control name.
+Tightened code involved in updating Err object. Thanks Ken Marsh
+fixed bug in finding text in string literals
+fixed bug in line continuation formatting that deleted double vbcrlf and a bug that stopped removal of temporary comment markers used to preserve blanks. Thanks Randy Giese
+Fixed bug in auto prefix rename which crashed in rare combo of circumstances.
+Added warning about running code to test Control renaming
+AT LAST real help file Thanks to Paul Turcksin for pushing me to do this.
+NOTE Help file 'Code Fixer 2.chm' needs to be copied.moved to same folder as the compiled dll. (Prog issues warning if you request help and it can't find the Help file)
